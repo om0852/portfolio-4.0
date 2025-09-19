@@ -20,7 +20,15 @@ const Game = () => {
         this.load.image("portfolio-bg", "/portfolio-bg.png");
         this.load.image("portfolio-pc", "/pokemon-pc.png");
         this.load.image("portfolio-bed", "/pokemon-bed.png");
+        this.load.image("photoframe", "/photoframe.png");
+        this.load.image("door", "/door.png");
+        this.load.image("trophy", "/tropy.png");
+        this.load.image("cupboard", "/cupboardbox.png");
         this.load.image("pokeball", "/pokeball.png");
+        this.load.image("player_left", "/walking_left.gif");
+        this.load.image("player_right", "/walking_right.gif");
+        this.load.image("player_back", "/walking_back.gif");
+        this.load.image("player_front", "/walking_front.gif");
         // Create simple colored rectangles as placeholders for sprites
         this.add
           .graphics()
@@ -29,14 +37,10 @@ const Game = () => {
           .generateTexture("player", 32, 32);
 
         const pcImage = this.add.image(60, 60, "portfolio-pc");
-        
-        this.add.image(40,40,"pokeball")
 
-        this.add
-          .graphics()
-          .fillStyle(0xfbbf24)
-          .fillRect(0, 0, 32, 40)
-          .generateTexture("trophy", 32, 40);
+        this.add.image(40, 40, "pokeball");
+
+        this.add.image(40,40,"trophy");
 
         this.add
           .graphics()
@@ -97,19 +101,41 @@ const Game = () => {
         walls.create(784, 300, null).setSize(32, 600).setVisible(false);
 
         // Add door to room 2
-        const door = this.physics.add.staticSprite(650, 300, "door");
-
+        const door = this.physics.add
+          .staticSprite(650, 300, "door")
+          .setDisplaySize(100, 200);
+        door.refreshBody();
         // Add interactive objects as physics sprites for collision
-        const pc = this.physics.add.staticSprite(60, 140, "portfolio-pc").setDisplaySize(80,80);
+        const pc = this.physics.add
+          .staticSprite(60, 140, "portfolio-pc")
+          .setDisplaySize(80, 80);
         pc.refreshBody();
-        const pokeball1 = this.physics.add.staticSprite(300, 140, "pokeball").setDisplaySize(30,30);
-        const pokeball2 = this.physics.add.staticSprite(350, 140, "pokeball").setDisplaySize(30,30);
-        const pokeball3 = this.physics.add.staticSprite(400, 140, "pokeball").setDisplaySize(30,30);
+        const bed = this.physics.add
+          .staticSprite(60, 540, "portfolio-bed")
+          .setDisplaySize(80, 80);
+        bed.refreshBody();
+        const cupboard = this.physics.add
+          .staticSprite(580, 140, "cupboard")
+          .setDisplaySize(70, 70);
+        cupboard.refreshBody();
+        const photoframe = this.physics.add
+          .staticSprite(260, 60, "photoframe")
+          .setDisplaySize(60, 60);
+        photoframe.refreshBody();
+        const pokeball1 = this.physics.add
+          .staticSprite(300, 140, "pokeball")
+          .setDisplaySize(30, 30);
+        const pokeball2 = this.physics.add
+          .staticSprite(350, 140, "pokeball")
+          .setDisplaySize(30, 30);
+        const pokeball3 = this.physics.add
+          .staticSprite(400, 140, "pokeball")
+          .setDisplaySize(30, 30);
         pokeball1.refreshBody();
         pokeball2.refreshBody();
         pokeball3.refreshBody();
 
-        const trophy = this.physics.add.staticSprite(650, 150, "trophy");
+        const trophy = this.physics.add.staticSprite(550, 150, "trophy");
 
         // Store interactive objects with their data
         this.interactiveObjects = [
@@ -159,10 +185,15 @@ const Game = () => {
         // Create player
         if (data?.fromRoom === 2) {
           // Coming from room 2, place near the door
-          this.player = this.physics.add.sprite(700, 300, "player");
+          this.player = this.physics.add.sprite(700, 300, "player_left");
+          this.player.setDisplaySize(40, 40);
+          this.player.refreshBody();
         } else {
           // Default position
-          this.player = this.physics.add.sprite(400, 400, "player");
+          //   this.player = this.physics.add.sprite(400, 400, "player");
+          this.player = this.physics.add.sprite(400, 400, "player_front");
+          this.player.setDisplaySize(40, 40);
+          this.player.refreshBody();
         }
         this.player.setCollideWorldBounds(true);
 
@@ -174,6 +205,9 @@ const Game = () => {
           pokeball2,
           pokeball3,
           trophy,
+          bed,
+          cupboard,
+          photoframe
         ]);
 
         // Player collisions with walls and objects
@@ -200,17 +234,17 @@ const Game = () => {
           .setVisible(false);
 
         // Add instructions
-        this.add.text(
-          20,
-          20,
-          "Use WASD or Arrow Keys to move\nGet close to objects and press ENTER to interact",
-          {
-            fontSize: "16px",
-            color: "#ffffff",
-            backgroundColor: "#000000",
-            padding: { x: 10, y: 10 },
-          }
-        );
+        // this.add.text(
+        //   20,
+        //   20,
+        //   "Use WASD or Arrow Keys to move\nGet close to objects and press ENTER to interact",
+        //   {
+        //     fontSize: "16px",
+        //     color: "#ffffff",
+        //     backgroundColor: "#000000",
+        //     padding: { x: 10, y: 10 },
+        //   }
+        // );
       }
 
       update() {
@@ -219,18 +253,22 @@ const Game = () => {
 
         if (this.cursors.left.isDown || this.wasd.A.isDown) {
           this.player.setVelocityX(-speed);
+          this.player.setVelocityY(0);
+          this.player.setTexture("player_left").setDisplaySize(40, 40);
         } else if (this.cursors.right.isDown || this.wasd.D.isDown) {
           this.player.setVelocityX(speed);
-        } else {
-          this.player.setVelocityX(0);
-        }
-
-        if (this.cursors.up.isDown || this.wasd.W.isDown) {
+          this.player.setVelocityY(0);
+          this.player.setTexture("player_right");
+        } else if (this.cursors.up.isDown || this.wasd.W.isDown) {
           this.player.setVelocityY(-speed);
+          this.player.setVelocityX(0);
+          this.player.setTexture("player_back");
         } else if (this.cursors.down.isDown || this.wasd.S.isDown) {
           this.player.setVelocityY(speed);
+          this.player.setVelocityX(0);
+          this.player.setTexture("player_front");
         } else {
-          this.player.setVelocityY(0);
+          this.player.setVelocity(0);
         }
 
         // Check proximity to interactive objects
@@ -300,7 +338,8 @@ const Game = () => {
 
       create(data?: { fromRoom: number }) {
         // Add room 2 background
-        this.add.image(400, 300, "room2-bg");
+        const bg = this.add.image(200, 300, "portfolio-bg");
+        bg.setDisplaySize(1100, 700); // Stretch to fit canvas
 
         // Create walls (invisible collision bodies)
         const walls = this.physics.add.staticGroup();
@@ -319,6 +358,7 @@ const Game = () => {
 
         // Add some different objects for room 2
         const pc2 = this.physics.add.staticSprite(600, 150, "portfolio-pc");
+        pc2.setDisplaySize(60, 60);
         const trophy2 = this.physics.add.staticSprite(400, 300, "trophy");
 
         // Store interactive objects with their data
@@ -348,10 +388,14 @@ const Game = () => {
         // Create player
         if (data?.fromRoom === 1) {
           // Coming from room 1, place near the door
-          this.player = this.physics.add.sprite(100, 300, "player");
+          this.player = this.physics.add.sprite(100, 300, "player_right");
+          this.player.setDisplaySize(40, 40);
+          this.player.refreshBody();
         } else {
           // Default position
-          this.player = this.physics.add.sprite(400, 400, "player");
+          this.player = this.physics.add.sprite(400, 400, "player_right");
+          this.player.setDisplaySize(40, 40);
+          this.player.refreshBody();
         }
         this.player.setCollideWorldBounds(true);
 
@@ -401,18 +445,22 @@ const Game = () => {
 
         if (this.cursors.left.isDown || this.wasd.A.isDown) {
           this.player.setVelocityX(-speed);
+          this.player.setVelocityY(0);
+          this.player.setTexture("player_left").setDisplaySize(40, 40);
         } else if (this.cursors.right.isDown || this.wasd.D.isDown) {
           this.player.setVelocityX(speed);
-        } else {
-          this.player.setVelocityX(0);
-        }
-
-        if (this.cursors.up.isDown || this.wasd.W.isDown) {
+          this.player.setVelocityY(0);
+          this.player.setTexture("player_right");
+        } else if (this.cursors.up.isDown || this.wasd.W.isDown) {
           this.player.setVelocityY(-speed);
+          this.player.setVelocityX(0);
+          this.player.setTexture("player_back");
         } else if (this.cursors.down.isDown || this.wasd.S.isDown) {
           this.player.setVelocityY(speed);
+          this.player.setVelocityX(0);
+          this.player.setTexture("player_front");
         } else {
-          this.player.setVelocityY(0);
+          this.player.setVelocity(0);
         }
 
         // Check proximity to interactive objects
