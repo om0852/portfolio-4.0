@@ -1,21 +1,31 @@
-"use client"
-import { useState, useEffect } from 'react';
+"use client";
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '../../components/ui/dialog';
+} from "../../components/ui/dialog";
+import Image from "next/image";
 
 interface GameModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
   content: string;
-}
+  image?:string;
+ }
 
-const GameModal = ({ isOpen, onClose, title, content }: GameModalProps) => {
+const GameModal = ({
+  isOpen,
+  onClose,
+  title,
+  content,
+  image,
+  ...props
+}: GameModalProps) => {
+  console.log(image,title,content,props)
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
@@ -24,6 +34,7 @@ const GameModal = ({ isOpen, onClose, title, content }: GameModalProps) => {
         </DialogHeader>
         <DialogDescription className="whitespace-pre-line text-base">
           {content}
+          {title=="Profile Image" && <Image src={"/omsalunke.jpg"} className="mx-auto" width={400} height={300}  alt="" />}{" "}
         </DialogDescription>
       </DialogContent>
     </Dialog>
@@ -33,8 +44,8 @@ const GameModal = ({ isOpen, onClose, title, content }: GameModalProps) => {
 export const useGameModal = () => {
   const [modalState, setModalState] = useState({
     isOpen: false,
-    title: '',
-    content: ''
+    title: "",
+    content: "",
   });
 
   useEffect(() => {
@@ -43,24 +54,27 @@ export const useGameModal = () => {
       setModalState({
         isOpen: true,
         title,
-        content
+        content,
       });
     };
 
-    window.addEventListener('showGameModal', handleShowModal as EventListener);
+    window.addEventListener("showGameModal", handleShowModal as EventListener);
 
     return () => {
-      window.removeEventListener('showGameModal', handleShowModal as EventListener);
+      window.removeEventListener(
+        "showGameModal",
+        handleShowModal as EventListener
+      );
     };
   }, []);
 
   const closeModal = () => {
-    setModalState(prev => ({ ...prev, isOpen: false }));
+    setModalState((prev) => ({ ...prev, isOpen: false }));
   };
 
   return {
     modalState,
-    closeModal
+    closeModal,
   };
 };
 

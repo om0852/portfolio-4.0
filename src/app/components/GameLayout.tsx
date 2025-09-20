@@ -22,7 +22,17 @@ const Game = () => {
         this.load.image("portfolio-bed", "/pokemon-bed.png");
         this.load.image("photoframe", "/photoframe.png");
         this.load.image("door", "/door.png");
+        this.load.image("snorlax-rightside", "/snorlax-rightside.png");
+        this.load.image("omsalunke", "/omsalunke.jpg");
+        this.load.image("sidelamp", "/sidelamp.png");
+        this.load.image("lamp1", "/lamp1.png");
+        this.load.image("chair1", "/chair1.png");
+        this.load.image("chair2", "/chair2.png");
+        this.load.image("table1", "/table1.png");
         this.load.image("trophy", "/tropy.png");
+        this.load.image("pikachu", "/pikachu.png");
+        this.load.image("eevee", "/eevee.png");
+        this.load.image("flowerpot", "/flowerpot.png");
         this.load.image("cupboard", "/cupboardbox.png");
         this.load.image("pokeball", "/pokeball.png");
         this.load.image("player_left", "/walking_left.gif");
@@ -40,7 +50,7 @@ const Game = () => {
 
         this.add.image(40, 40, "pokeball");
 
-        this.add.image(40,40,"trophy");
+        this.add.image(40, 40, "trophy");
 
         this.add
           .graphics()
@@ -54,11 +64,7 @@ const Game = () => {
           .fillRect(0, 0, 800, 600)
           .generateTexture("room2-bg", 800, 600);
 
-        this.add
-          .graphics()
-          .fillStyle(0x92400e)
-          .fillRect(0, 0, 48, 80)
-          .generateTexture("door", 48, 80);
+        this.add.image(48, 48, "door");
       }
 
       create() {
@@ -76,6 +82,7 @@ const Game = () => {
         type: string;
         title: string;
         content: string;
+        image?: string;
       }> = [];
       private interactionText!: Phaser.GameObjects.Text;
 
@@ -102,8 +109,8 @@ const Game = () => {
 
         // Add door to room 2
         const door = this.physics.add
-          .staticSprite(650, 300, "door")
-          .setDisplaySize(100, 200);
+          .staticSprite(480, 80, "door")
+          .setDisplaySize(70, 110);
         door.refreshBody();
         // Add interactive objects as physics sprites for collision
         const pc = this.physics.add
@@ -122,21 +129,40 @@ const Game = () => {
           .staticSprite(260, 60, "photoframe")
           .setDisplaySize(60, 60);
         photoframe.refreshBody();
-        const pokeball1 = this.physics.add
-          .staticSprite(300, 140, "pokeball")
-          .setDisplaySize(30, 30);
-        const pokeball2 = this.physics.add
-          .staticSprite(350, 140, "pokeball")
-          .setDisplaySize(30, 30);
-        const pokeball3 = this.physics.add
-          .staticSprite(400, 140, "pokeball")
-          .setDisplaySize(30, 30);
-        pokeball1.refreshBody();
-        pokeball2.refreshBody();
-        pokeball3.refreshBody();
 
-        const trophy = this.physics.add.staticSprite(550, 150, "trophy");
+        const pikachu = this.physics.add
+          .staticSprite(150, 130, "pikachu")
+          .setDisplaySize(50, 50);
+        pikachu.refreshBody();
+        const sidelamp = this.physics.add
+          .staticSprite(50, 330, "sidelamp")
+          .setDisplaySize(50, 80);
+        sidelamp.refreshBody();
 
+        const flowerpot1 = this.physics.add
+          .staticSprite(300, 140, "flowerpot")
+          .setDisplaySize(30, 40);
+        const flowerpot2 = this.physics.add
+          .staticSprite(350, 140, "flowerpot")
+          .setDisplaySize(30, 40);
+        const flowerpot3 = this.physics.add
+          .staticSprite(400, 140, "flowerpot")
+          .setDisplaySize(30, 40);
+        const flowerpot4 = this.physics.add
+          .staticSprite(50, 370, "flowerpot")
+          .setDisplaySize(30, 40);
+        const sonalax = this.physics.add
+          .staticSprite(620, 500, "snorlax-rightside")
+          .setDisplaySize(50, 50);
+        flowerpot1.refreshBody();
+        flowerpot2.refreshBody();
+        flowerpot3.refreshBody();
+        flowerpot4.refreshBody();
+
+        const trophy = this.physics.add
+          .staticSprite(580, 110, "trophy")
+          .setDisplaySize(40, 40);
+        trophy.refreshBody();
         // Store interactive objects with their data
         this.interactiveObjects = [
           {
@@ -153,26 +179,13 @@ const Game = () => {
               "Here are my coding projects:\n• React Portfolio Game\n• Carbon Credit Platform\n• E-commerce Dashboard\n• Task Management System\n• Weather App",
           },
           {
-            sprite: pokeball1,
-            type: "pokeball",
-            title: "Frontend Skills",
+            sprite: pikachu,
+            type: "pikachu",
+            title: "Pokemon",
             content:
-              "Frontend Technologies:\n• React & Next.js\n• TypeScript\n• Tailwind CSS\n• Vue.js\n• HTML5 & CSS3",
+              "✨ 'Do you know about my master? His name is Om Sachin Salunke! ⚡ He’s not just any developer—he’s a full-stack wizard who builds powerful web apps, mobile apps, and even dives deep into the world of blockchain! 🧑‍💻 With his skills and experience, he can turn imagination into reality. Pika pika Pikachu!' ⚡🐭",
           },
-          {
-            sprite: pokeball2,
-            type: "pokeball",
-            title: "Backend Skills",
-            content:
-              "Backend Technologies:\n• Node.js & Express\n• Python & Django\n• PostgreSQL & MongoDB\n• Supabase & Firebase\n• REST APIs",
-          },
-          {
-            sprite: pokeball3,
-            type: "pokeball",
-            title: "Other Skills",
-            content:
-              "Additional Skills:\n• Git & GitHub\n• Docker & AWS\n• Phaser.js Game Dev\n• UI/UX Design\n• Agile Development",
-          },
+
           {
             sprite: trophy,
             type: "trophy",
@@ -180,12 +193,19 @@ const Game = () => {
             content:
               "🏆 Built 50+ React components\n🏆 Deployed 10+ web applications\n🏆 Mastered TypeScript\n🏆 Created interactive games\n🏆 Led development teams",
           },
+          {
+            sprite: photoframe,
+            type: "photo",
+            title: "Profile Image",
+            content: "",
+            image: "/omsalunke.jpg",
+          },
         ];
 
         // Create player
         if (data?.fromRoom === 2) {
           // Coming from room 2, place near the door
-          this.player = this.physics.add.sprite(700, 300, "player_left");
+          this.player = this.physics.add.sprite(470, 130, "player_front");
           this.player.setDisplaySize(40, 40);
           this.player.refreshBody();
         } else {
@@ -201,13 +221,18 @@ const Game = () => {
         const objectGroup = this.physics.add.staticGroup([
           door,
           pc,
-          pokeball1,
-          pokeball2,
-          pokeball3,
+          flowerpot1,
+          flowerpot2,
+          flowerpot3,
           trophy,
           bed,
           cupboard,
-          photoframe
+          photoframe,
+          pikachu,
+          flowerpot4,
+          sonalax,
+
+          sidelamp,
         ]);
 
         // Player collisions with walls and objects
@@ -291,6 +316,7 @@ const Game = () => {
 
         // Show/hide interaction prompt
         if (nearObject) {
+          // console.log(nearObject)
           this.interactionText.setText(
             `Press ENTER to interact with ${nearObject.type.toUpperCase()}`
           );
@@ -301,7 +327,11 @@ const Game = () => {
             if (nearObject.content === "door") {
               this.scene.start("GameScene2", { fromRoom: 1 });
             } else {
-              this.showModal(nearObject.title, nearObject.content);
+              this.showModal(
+                nearObject.title,
+                nearObject.content,
+                nearObject?.image
+              );
             }
           }
         } else {
@@ -309,16 +339,19 @@ const Game = () => {
         }
       }
 
-      private showModal(title: string, content: string) {
+      private showModal(title: string, content: string, image: string) {
         // Dispatch custom event to React
+        const data = { title, content };
+        console.log(data);
         window.dispatchEvent(
           new CustomEvent("showGameModal", {
-            detail: { title, content },
+            detail: data,
           })
         );
       }
     }
 
+    //game 2 layout
     class GameScene2 extends Phaser.Scene {
       private player!: Phaser.Physics.Arcade.Sprite;
       private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -329,6 +362,7 @@ const Game = () => {
         type: string;
         title: string;
         content: string;
+        image?: string;
       }> = [];
       private interactionText!: Phaser.GameObjects.Text;
 
@@ -354,12 +388,95 @@ const Game = () => {
         walls.create(784, 300, null).setSize(32, 600).setVisible(false);
 
         // Add door back to room 1
-        const door = this.physics.add.staticSprite(50, 300, "door");
-
+        const door = this.physics.add
+          .staticSprite(100, 80, "door")
+          .setDisplaySize(70, 110);
+        door.refreshBody();
         // Add some different objects for room 2
-        const pc2 = this.physics.add.staticSprite(600, 150, "portfolio-pc");
-        pc2.setDisplaySize(60, 60);
-        const trophy2 = this.physics.add.staticSprite(400, 300, "trophy");
+        const pc2 = this.physics.add.staticSprite(600, 140, "portfolio-pc");
+        pc2.setDisplaySize(70, 70);
+        pc2.refreshBody();
+        // const trophy2 = this.physics.add
+        //   .staticSprite(400, 300, "trophy")
+        //   .setDisplaySize(50, 50);
+        // trophy2.refreshBody();
+        const flowerpot1 = this.physics.add
+          .staticSprite(620, 240, "flowerpot")
+          .setDisplaySize(30, 40);
+        const flowerpot2 = this.physics.add
+          .staticSprite(620, 270, "flowerpot")
+          .setDisplaySize(30, 40);
+        const flowerpot3 = this.physics.add
+          .staticSprite(620, 300, "flowerpot")
+          .setDisplaySize(30, 40);
+        const flowerpot4 = this.physics.add
+          .staticSprite(50, 150, "flowerpot")
+          .setDisplaySize(30, 40);
+        const lamp1 = this.physics.add
+          .staticSprite(240, 120, "lamp1")
+          .setDisplaySize(80, 60);
+        lamp1.refreshBody();
+        const cupboard1 = this.physics.add
+          .staticSprite(50, 350, "cupboard")
+          .setDisplaySize(60, 60);
+        cupboard1.refreshBody();
+        const cupboard2 = this.physics.add
+          .staticSprite(120, 350, "cupboard")
+          .setDisplaySize(60, 60);
+        cupboard2.refreshBody();
+        const cupboard3 = this.physics.add
+          .staticSprite(190, 350, "cupboard")
+          .setDisplaySize(60, 60);
+        cupboard3.refreshBody();
+        const cupboard4 = this.physics.add
+          .staticSprite(260, 350, "cupboard")
+          .setDisplaySize(60, 60);
+        cupboard4.refreshBody();
+        const cupboard5 = this.physics.add
+          .staticSprite(330, 350, "cupboard")
+          .setDisplaySize(60, 60);
+        cupboard5.refreshBody();
+        const cupboard6 = this.physics.add
+          .staticSprite(400, 350, "cupboard")
+          .setDisplaySize(60, 60);
+        cupboard6.refreshBody();
+        const pokeball1 = this.physics.add
+          .staticSprite(50, 330, "pokeball")
+          .setDisplaySize(30, 30);
+        const pokeball2 = this.physics.add
+          .staticSprite(120, 330, "pokeball")
+          .setDisplaySize(30, 30);
+        const pokeball3 = this.physics.add
+          .staticSprite(190, 330, "pokeball")
+          .setDisplaySize(30, 30);
+        const pokeball4 = this.physics.add
+          .staticSprite(260, 330, "pokeball")
+          .setDisplaySize(30, 30);
+        const pokeball5 = this.physics.add
+          .staticSprite(330, 330, "pokeball")
+          .setDisplaySize(30, 30);
+        const pokeball6 = this.physics.add
+          .staticSprite(400, 330, "pokeball")
+          .setDisplaySize(30, 30);
+        const eevee = this.physics.add
+          .staticSprite(470, 350, "eevee")
+          .setDisplaySize(40, 40);
+        eevee.refreshBody();
+        const door2 = this.physics.add
+          .staticSprite(470, 580, "door")
+          .setDisplaySize(50, 40);
+          door2.refreshBody();
+        eevee.refreshBody();
+        pokeball1.refreshBody();
+        pokeball2.refreshBody();
+        pokeball3.refreshBody();
+        pokeball4.refreshBody();
+        pokeball5.refreshBody();
+        pokeball6.refreshBody();
+        flowerpot1.refreshBody();
+        flowerpot2.refreshBody();
+        flowerpot3.refreshBody();
+        flowerpot4.refreshBody();
 
         // Store interactive objects with their data
         this.interactiveObjects = [
@@ -377,30 +494,50 @@ const Game = () => {
               "Advanced Projects:\n• AI-Powered Analytics\n• Blockchain Integration\n• Real-time Chat System\n• Machine Learning Models\n• Microservices Architecture",
           },
           {
-            sprite: trophy2,
-            type: "trophy",
-            title: "Leadership",
-            content:
-              "🏆 Led development teams of 5+\n🏆 Mentored junior developers\n🏆 Architected scalable systems\n🏆 Delivered 20+ projects on time\n🏆 Tech talk speaker",
+            sprite: eevee,
+            type: "pokemon",
+            title: "This are my master skill ",
+            content: "You can check each pokeball to know my master ability",
           },
+          // {
+          //   sprite: trophy2,
+          //   type: "trophy",
+          //   title: "Leadership",
+          //   content:
+          //     "🏆 Led development teams of 5+\n🏆 Mentored junior developers\n🏆 Architected scalable systems\n🏆 Delivered 20+ projects on time\n🏆 Tech talk speaker",
+          // },
         ];
 
         // Create player
         if (data?.fromRoom === 1) {
           // Coming from room 1, place near the door
-          this.player = this.physics.add.sprite(100, 300, "player_right");
+          this.player = this.physics.add.sprite(90, 130, "player_front");
           this.player.setDisplaySize(40, 40);
           this.player.refreshBody();
         } else {
           // Default position
-          this.player = this.physics.add.sprite(400, 400, "player_right");
+          this.player = this.physics.add.sprite(300, 80, "player_right");
           this.player.setDisplaySize(40, 40);
           this.player.refreshBody();
         }
         this.player.setCollideWorldBounds(true);
 
-        // Create object group for collisions
-        const objectGroup = this.physics.add.staticGroup([door, pc2, trophy2]);
+        // Create object group for collisions for room 2
+        const objectGroup = this.physics.add.staticGroup([
+          door,
+          pc2,
+          flowerpot1,
+          flowerpot2,
+          flowerpot3,
+          flowerpot4,
+          cupboard1,
+          cupboard2,
+          cupboard3,
+          cupboard4,
+          cupboard5,
+          cupboard6,
+          eevee,
+        ]);
 
         // Player collisions with walls and objects
         this.physics.add.collider(this.player, walls);
@@ -483,6 +620,7 @@ const Game = () => {
 
         // Show/hide interaction prompt
         if (nearObject) {
+          // console.log(nearObject)
           this.interactionText.setText(
             `Press ENTER to interact with ${nearObject.type.toUpperCase()}`
           );
@@ -493,7 +631,12 @@ const Game = () => {
             if (nearObject.content === "door") {
               this.scene.start("GameScene", { fromRoom: 2 });
             } else {
-              this.showModal(nearObject.title, nearObject.content);
+              // console.log(nearObject)
+              this.showModal(
+                nearObject.title,
+                nearObject.content,
+                nearObject?.image
+              );
             }
           }
         } else {
@@ -501,11 +644,322 @@ const Game = () => {
         }
       }
 
-      private showModal(title: string, content: string) {
+      private showModal(title: string, content: string, image: string) {
+        console.log(image);
         // Dispatch custom event to React
         window.dispatchEvent(
           new CustomEvent("showGameModal", {
-            detail: { title, content },
+            detail: { title, content, image: image },
+          })
+        );
+      }
+    }
+
+      class GameScene3 extends Phaser.Scene {
+      private player!: Phaser.Physics.Arcade.Sprite;
+      private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+      private wasd!: any;
+      private enterKey!: Phaser.Input.Keyboard.Key;
+      private interactiveObjects: Array<{
+        sprite: Phaser.GameObjects.Image;
+        type: string;
+        title: string;
+        content: string;
+        image?: string;
+      }> = [];
+      private interactionText!: Phaser.GameObjects.Text;
+
+      constructor() {
+        super({ key: "GameScene3" });
+      }
+
+      create(data?: { fromRoom: number }) {
+        // Add room 2 background
+        const bg = this.add.image(200, 300, "portfolio-bg");
+        bg.setDisplaySize(1100, 700); // Stretch to fit canvas
+
+        // Create walls (invisible collision bodies)
+        const walls = this.physics.add.staticGroup();
+
+        // Top wall
+        walls.create(400, 16, null).setSize(800, 32).setVisible(false);
+        // Bottom wall
+        walls.create(400, 584, null).setSize(800, 32).setVisible(false);
+        // Left wall
+        walls.create(16, 300, null).setSize(32, 600).setVisible(false);
+        // Right wall
+        walls.create(784, 300, null).setSize(32, 600).setVisible(false);
+
+        // Add door back to room 1
+        const door = this.physics.add
+          .staticSprite(100, 80, "door")
+          .setDisplaySize(70, 110);
+        door.refreshBody();
+        // Add some different objects for room 2
+        const pc2 = this.physics.add.staticSprite(600, 140, "portfolio-pc");
+        pc2.setDisplaySize(70, 70);
+        pc2.refreshBody();
+        // const trophy2 = this.physics.add
+        //   .staticSprite(400, 300, "trophy")
+        //   .setDisplaySize(50, 50);
+        // trophy2.refreshBody();
+        const flowerpot1 = this.physics.add
+          .staticSprite(620, 240, "flowerpot")
+          .setDisplaySize(30, 40);
+        const flowerpot2 = this.physics.add
+          .staticSprite(620, 270, "flowerpot")
+          .setDisplaySize(30, 40);
+        const flowerpot3 = this.physics.add
+          .staticSprite(620, 300, "flowerpot")
+          .setDisplaySize(30, 40);
+        const flowerpot4 = this.physics.add
+          .staticSprite(50, 150, "flowerpot")
+          .setDisplaySize(30, 40);
+        const lamp1 = this.physics.add
+          .staticSprite(240, 120, "lamp1")
+          .setDisplaySize(80, 60);
+        lamp1.refreshBody();
+        const cupboard1 = this.physics.add
+          .staticSprite(50, 350, "cupboard")
+          .setDisplaySize(60, 60);
+        cupboard1.refreshBody();
+        const cupboard2 = this.physics.add
+          .staticSprite(120, 350, "cupboard")
+          .setDisplaySize(60, 60);
+        cupboard2.refreshBody();
+        const cupboard3 = this.physics.add
+          .staticSprite(190, 350, "cupboard")
+          .setDisplaySize(60, 60);
+        cupboard3.refreshBody();
+        const cupboard4 = this.physics.add
+          .staticSprite(260, 350, "cupboard")
+          .setDisplaySize(60, 60);
+        cupboard4.refreshBody();
+        const cupboard5 = this.physics.add
+          .staticSprite(330, 350, "cupboard")
+          .setDisplaySize(60, 60);
+        cupboard5.refreshBody();
+        const cupboard6 = this.physics.add
+          .staticSprite(400, 350, "cupboard")
+          .setDisplaySize(60, 60);
+        cupboard6.refreshBody();
+        const pokeball1 = this.physics.add
+          .staticSprite(50, 330, "pokeball")
+          .setDisplaySize(30, 30);
+        const pokeball2 = this.physics.add
+          .staticSprite(120, 330, "pokeball")
+          .setDisplaySize(30, 30);
+        const pokeball3 = this.physics.add
+          .staticSprite(190, 330, "pokeball")
+          .setDisplaySize(30, 30);
+        const pokeball4 = this.physics.add
+          .staticSprite(260, 330, "pokeball")
+          .setDisplaySize(30, 30);
+        const pokeball5 = this.physics.add
+          .staticSprite(330, 330, "pokeball")
+          .setDisplaySize(30, 30);
+        const pokeball6 = this.physics.add
+          .staticSprite(400, 330, "pokeball")
+          .setDisplaySize(30, 30);
+        const eevee = this.physics.add
+          .staticSprite(470, 350, "eevee")
+          .setDisplaySize(40, 40);
+        eevee.refreshBody();
+        const door2 = this.physics.add
+          .staticSprite(470, 400, "door")
+          .setDisplaySize(50, 40);
+          door2.refreshBody();
+        eevee.refreshBody();
+        pokeball1.refreshBody();
+        pokeball2.refreshBody();
+        pokeball3.refreshBody();
+        pokeball4.refreshBody();
+        pokeball5.refreshBody();
+        pokeball6.refreshBody();
+        flowerpot1.refreshBody();
+        flowerpot2.refreshBody();
+        flowerpot3.refreshBody();
+        flowerpot4.refreshBody();
+
+        // Store interactive objects with their data
+        this.interactiveObjects = [
+          {
+            sprite: door,
+            type: "door",
+            title: "Door to Room 1",
+            content: "door",
+          },
+          {
+            sprite: door2,
+            type: "door",
+            title: "Door to Room 3",
+            content: "door",
+          },
+          {
+            sprite: pc2,
+            type: "pc",
+            title: "Advanced Projects",
+            content:
+              "Advanced Projects:\n• AI-Powered Analytics\n• Blockchain Integration\n• Real-time Chat System\n• Machine Learning Models\n• Microservices Architecture",
+          },
+          {
+            sprite: eevee,
+            type: "pokemon",
+            title: "This are my master skill ",
+            content: "You can check each pokeball to know my master ability",
+          },
+          // {
+          //   sprite: trophy2,
+          //   type: "trophy",
+          //   title: "Leadership",
+          //   content:
+          //     "🏆 Led development teams of 5+\n🏆 Mentored junior developers\n🏆 Architected scalable systems\n🏆 Delivered 20+ projects on time\n🏆 Tech talk speaker",
+          // },
+        ];
+
+        // Create player
+        if (data?.fromRoom === 2) {
+          // Coming from room 1, place near the door
+          this.player = this.physics.add.sprite(90, 130, "player_front");
+          this.player.setDisplaySize(40, 40);
+          this.player.refreshBody();
+        } else {
+          // Default position
+          this.player = this.physics.add.sprite(300, 80, "player_right");
+          this.player.setDisplaySize(40, 40);
+          this.player.refreshBody();
+        }
+        this.player.setCollideWorldBounds(true);
+
+        // Create object group for collisions for room 2
+        const objectGroup = this.physics.add.staticGroup([
+          door,
+          pc2,
+          flowerpot1,
+          flowerpot2,
+          flowerpot3,
+          flowerpot4,
+          cupboard1,
+          cupboard2,
+          cupboard3,
+          cupboard4,
+          cupboard5,
+          cupboard6,
+          eevee,
+          door2
+        ]);
+
+        // Player collisions with walls and objects
+        this.physics.add.collider(this.player, walls);
+        this.physics.add.collider(this.player, objectGroup);
+
+        // Setup controls
+        this.cursors = this.input.keyboard!.createCursorKeys();
+        this.wasd = this.input.keyboard!.addKeys("W,S,A,D");
+        this.enterKey = this.input.keyboard!.addKey(
+          Phaser.Input.Keyboard.KeyCodes.ENTER
+        );
+
+        // Add interaction text (initially hidden)
+        this.interactionText = this.add
+          .text(400, 50, "", {
+            fontSize: "18px",
+            color: "#ffffff",
+            backgroundColor: "#000000",
+            padding: { x: 15, y: 10 },
+            align: "center",
+          })
+          .setOrigin(0.5)
+          .setVisible(false);
+
+        // Add instructions
+        // this.add.text(
+        //   20,
+        //   20,
+        //   "Room 2 - Use WASD or Arrow Keys to move\nGet close to objects and press ENTER to interact",
+        //   {
+        //     fontSize: "16px",
+        //     color: "#ffffff",
+        //     backgroundColor: "#000000",
+        //     padding: { x: 10, y: 10 },
+        //   }
+        // );
+      }
+
+      update() {
+        // Player movement
+        const speed = 160;
+
+        if (this.cursors.left.isDown || this.wasd.A.isDown) {
+          this.player.setVelocityX(-speed);
+          this.player.setVelocityY(0);
+          this.player.setTexture("player_left").setDisplaySize(40, 40);
+        } else if (this.cursors.right.isDown || this.wasd.D.isDown) {
+          this.player.setVelocityX(speed);
+          this.player.setVelocityY(0);
+          this.player.setTexture("player_right").setDisplaySize(40, 40);
+        } else if (this.cursors.up.isDown || this.wasd.W.isDown) {
+          this.player.setVelocityY(-speed);
+          this.player.setVelocityX(0);
+          this.player.setTexture("player_back").setDisplaySize(40, 40);
+        } else if (this.cursors.down.isDown || this.wasd.S.isDown) {
+          this.player.setVelocityY(speed);
+          this.player.setVelocityX(0);
+          this.player.setTexture("player_front").setDisplaySize(40, 40);
+        } else {
+          this.player.setVelocity(0);
+        }
+
+        // Check proximity to interactive objects
+        let nearObject = null;
+        const interactionDistance = 80;
+
+        for (const obj of this.interactiveObjects) {
+          const distance = Phaser.Math.Distance.Between(
+            this.player.x,
+            this.player.y,
+            obj.sprite.x,
+            obj.sprite.y
+          );
+
+          if (distance < interactionDistance) {
+            nearObject = obj;
+            break;
+          }
+        }
+
+        // Show/hide interaction prompt
+        if (nearObject) {
+          // console.log(nearObject)
+          this.interactionText.setText(
+            `Press ENTER to interact with ${nearObject.type.toUpperCase()}`
+          );
+          this.interactionText.setVisible(true);
+
+          // Check for Enter key press
+          if (Phaser.Input.Keyboard.JustDown(this.enterKey)) {
+            if (nearObject.content === "door") {
+              this.scene.start("GameScene", { fromRoom: 3 });
+            } else {
+              // console.log(nearObject)
+              this.showModal(
+                nearObject.title,
+                nearObject.content,
+                nearObject?.image
+              );
+            }
+          }
+        } else {
+          this.interactionText.setVisible(false);
+        }
+      }
+
+      private showModal(title: string, content: string, image: string) {
+        console.log(image);
+        // Dispatch custom event to React
+        window.dispatchEvent(
+          new CustomEvent("showGameModal", {
+            detail: { title, content, image: image },
           })
         );
       }
@@ -524,7 +978,7 @@ const Game = () => {
           debug: false,
         },
       },
-      scene: [PreloadScene, GameScene, GameScene2],
+      scene: [PreloadScene, GameScene, GameScene2,GameScene3],
     };
 
     // Create game instance
