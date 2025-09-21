@@ -17,7 +17,21 @@ const Game = () => {
       }
 
       preload() {
+        //background
         this.load.image("portfolio-bg", "/portfolio-bg.png");
+        this.load.image("background2", "/background/bg2.png");
+        this.load.image("background3", "/background/bg3.png");
+
+        //pokemon
+        this.load.image("chansey", "/pokemon/chansey.gif");
+        this.load.image("bulbizarre", "/pokemon/bulbizarre.gif");
+        this.load.image("pikachu", "/pokemon/pikachu.gif");
+        this.load.image("politoed", "/pokemon/politoed.gif");
+        this.load.image("turtwig", "/pokemon/turtwig.gif");
+
+        //objects
+        
+
         this.load.image("portfolio-pc", "/pokemon-pc.png");
         this.load.image("portfolio-bed", "/pokemon-bed.png");
         this.load.image("photoframe", "/photoframe.png");
@@ -29,8 +43,7 @@ const Game = () => {
         this.load.image("chair1", "/chair1.png");
         this.load.image("chair2", "/chair2.png");
         this.load.image("table1", "/table1.png");
-        this.load.image("trophy", "/tropy.png");
-        this.load.image("pikachu", "/pikachu.png");
+        this.load.image("trophy", "/trophy.png");
         this.load.image("eevee", "/eevee.png");
         this.load.image("flowerpot", "/flowerpot.png");
         this.load.image("cupboard", "/cupboardbox.png");
@@ -372,7 +385,7 @@ const Game = () => {
 
       create(data?: { fromRoom: number }) {
         // Add room 2 background
-        const bg = this.add.image(200, 300, "portfolio-bg");
+        const bg = this.add.image(200, 300, "background2");
         bg.setDisplaySize(1100, 700); // Stretch to fit canvas
 
         // Create walls (invisible collision bodies)
@@ -463,9 +476,9 @@ const Game = () => {
           .setDisplaySize(40, 40);
         eevee.refreshBody();
         const door2 = this.physics.add
-          .staticSprite(470, 580, "door")
+          .staticSprite(470, 500, "door")
           .setDisplaySize(50, 40);
-          door2.refreshBody();
+        door2.refreshBody();
         eevee.refreshBody();
         pokeball1.refreshBody();
         pokeball2.refreshBody();
@@ -485,6 +498,12 @@ const Game = () => {
             type: "door",
             title: "Door to Room 1",
             content: "door",
+          },
+          {
+            sprite: door2,
+            type: "door",
+            title: "Door to Room 3",
+            content: "doorToRoom3",
           },
           {
             sprite: pc2,
@@ -563,17 +582,17 @@ const Game = () => {
           .setVisible(false);
 
         // Add instructions
-        this.add.text(
-          20,
-          20,
-          "Room 2 - Use WASD or Arrow Keys to move\nGet close to objects and press ENTER to interact",
-          {
-            fontSize: "16px",
-            color: "#ffffff",
-            backgroundColor: "#000000",
-            padding: { x: 10, y: 10 },
-          }
-        );
+        // this.add.text(
+        //   20,
+        //   20,
+        //   "Room 2 - Use WASD or Arrow Keys to move\nGet close to objects and press ENTER to interact",
+        //   {
+        //     fontSize: "16px",
+        //     color: "#ffffff",
+        //     backgroundColor: "#000000",
+        //     padding: { x: 10, y: 10 },
+        //   }
+        // );
       }
 
       update() {
@@ -630,6 +649,8 @@ const Game = () => {
           if (Phaser.Input.Keyboard.JustDown(this.enterKey)) {
             if (nearObject.content === "door") {
               this.scene.start("GameScene", { fromRoom: 2 });
+            } else if (nearObject.content == "doorToRoom3") {
+              this.scene.start("GameScene3", { fromRoom: 2 });
             } else {
               // console.log(nearObject)
               this.showModal(
@@ -655,7 +676,7 @@ const Game = () => {
       }
     }
 
-      class GameScene3 extends Phaser.Scene {
+    class GameScene3 extends Phaser.Scene {
       private player!: Phaser.Physics.Arcade.Sprite;
       private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
       private wasd!: any;
@@ -674,15 +695,15 @@ const Game = () => {
       }
 
       create(data?: { fromRoom: number }) {
-        // Add room 2 background
-        const bg = this.add.image(200, 300, "portfolio-bg");
+        // Add room 3 background
+        const bg = this.add.image(200, 300, "background3");
         bg.setDisplaySize(1100, 700); // Stretch to fit canvas
 
         // Create walls (invisible collision bodies)
         const walls = this.physics.add.staticGroup();
 
         // Top wall
-        walls.create(400, 16, null).setSize(800, 32).setVisible(false);
+        walls.create(400, 100, null).setSize(800, 200).setVisible(false);
         // Bottom wall
         walls.create(400, 584, null).setSize(800, 32).setVisible(false);
         // Left wall
@@ -692,11 +713,11 @@ const Game = () => {
 
         // Add door back to room 1
         const door = this.physics.add
-          .staticSprite(100, 80, "door")
+          .staticSprite(100, 180, "door")
           .setDisplaySize(70, 110);
         door.refreshBody();
         // Add some different objects for room 2
-        const pc2 = this.physics.add.staticSprite(600, 140, "portfolio-pc");
+        const pc2 = this.physics.add.staticSprite(600, 230, "portfolio-pc");
         pc2.setDisplaySize(70, 70);
         pc2.refreshBody();
         // const trophy2 = this.physics.add
@@ -744,31 +765,31 @@ const Game = () => {
           .setDisplaySize(60, 60);
         cupboard6.refreshBody();
         const pokeball1 = this.physics.add
-          .staticSprite(50, 330, "pokeball")
+          .staticSprite(50, 330, "trophy")
           .setDisplaySize(30, 30);
         const pokeball2 = this.physics.add
-          .staticSprite(120, 330, "pokeball")
+          .staticSprite(120, 330, "trophy")
           .setDisplaySize(30, 30);
         const pokeball3 = this.physics.add
-          .staticSprite(190, 330, "pokeball")
+          .staticSprite(190, 330, "trophy")
           .setDisplaySize(30, 30);
         const pokeball4 = this.physics.add
-          .staticSprite(260, 330, "pokeball")
+          .staticSprite(260, 330, "trophy")
           .setDisplaySize(30, 30);
         const pokeball5 = this.physics.add
-          .staticSprite(330, 330, "pokeball")
+          .staticSprite(330, 330, "trophy")
           .setDisplaySize(30, 30);
         const pokeball6 = this.physics.add
-          .staticSprite(400, 330, "pokeball")
+          .staticSprite(400, 330, "trophy")
           .setDisplaySize(30, 30);
         const eevee = this.physics.add
           .staticSprite(470, 350, "eevee")
-          .setDisplaySize(40, 40);
+          .setDisplaySize(50, 50);
         eevee.refreshBody();
         const door2 = this.physics.add
-          .staticSprite(470, 400, "door")
-          .setDisplaySize(50, 40);
-          door2.refreshBody();
+          .staticSprite(470, 80, "door")
+          .setDisplaySize(50, 70);
+        door2.refreshBody();
         eevee.refreshBody();
         pokeball1.refreshBody();
         pokeball2.refreshBody();
@@ -786,14 +807,14 @@ const Game = () => {
           {
             sprite: door,
             type: "door",
-            title: "Door to Room 1",
-            content: "door",
+            title: "Door to Room 2",
+            content: "doorToRoom2",
           },
           {
             sprite: door2,
             type: "door",
-            title: "Door to Room 3",
-            content: "door",
+            title: "Door to Room 4",
+            content: "doorToRoom4",
           },
           {
             sprite: pc2,
@@ -818,14 +839,14 @@ const Game = () => {
         ];
 
         // Create player
-        if (data?.fromRoom === 2) {
-          // Coming from room 1, place near the door
-          this.player = this.physics.add.sprite(90, 130, "player_front");
+        if (data?.fromRoom === 3) {
+          // Coming from room 2, place near the door
+          this.player = this.physics.add.sprite(90, 230, "player_front");
           this.player.setDisplaySize(40, 40);
           this.player.refreshBody();
         } else {
           // Default position
-          this.player = this.physics.add.sprite(300, 80, "player_right");
+          this.player = this.physics.add.sprite(300, 280, "player_right");
           this.player.setDisplaySize(40, 40);
           this.player.refreshBody();
         }
@@ -846,7 +867,7 @@ const Game = () => {
           cupboard5,
           cupboard6,
           eevee,
-          door2
+          door2,
         ]);
 
         // Player collisions with walls and objects
@@ -938,10 +959,11 @@ const Game = () => {
 
           // Check for Enter key press
           if (Phaser.Input.Keyboard.JustDown(this.enterKey)) {
-            if (nearObject.content === "door") {
-              this.scene.start("GameScene", { fromRoom: 3 });
+            if (nearObject.content === "doorToRoom2") {
+              this.scene.start("GameScene2", { fromRoom: 3 });
+            } else if (nearObject.content === "doorToRoom4") {
+              this.scene.start("GameScene4", { fromRoom: 3 }); // 👈 go to room 3
             } else {
-              // console.log(nearObject)
               this.showModal(
                 nearObject.title,
                 nearObject.content,
@@ -978,7 +1000,7 @@ const Game = () => {
           debug: false,
         },
       },
-      scene: [PreloadScene, GameScene, GameScene2,GameScene3],
+      scene: [PreloadScene, GameScene, GameScene2, GameScene3],
     };
 
     // Create game instance
