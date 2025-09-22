@@ -30,22 +30,35 @@ const Game = () => {
         this.load.image("turtwig", "/pokemon/turtwig.gif");
 
         //objects
-        
 
         this.load.image("portfolio-pc", "/pokemon-pc.png");
         this.load.image("portfolio-bed", "/pokemon-bed.png");
         this.load.image("photoframe", "/photoframe.png");
+        this.load.image("photoframe2", "/photoframe2.png");
+        this.load.image("photoframe3", "/photoframe3.png");
+        this.load.image("mirror", "/mirror.png");
+        this.load.image("plant2", "/plant2.png");
         this.load.image("door", "/door.png");
         this.load.image("snorlax-rightside", "/snorlax-rightside.png");
         this.load.image("omsalunke", "/omsalunke.jpg");
         this.load.image("sidelamp", "/sidelamp.png");
         this.load.image("lamp1", "/lamp1.png");
+        this.load.image("lamp2", "/lamp2.png");
         this.load.image("chair1", "/chair1.png");
         this.load.image("chair2", "/chair2.png");
         this.load.image("table1", "/table1.png");
-        this.load.image("trophy", "/trophy.png");
+        this.load.image("table2", "/table2.png");
+        this.load.image("tablefan", "/tablepan.png");
+        this.load.image("telephone", "/telephone.png");
+        this.load.image("eggtoy", "/eggtoy.png");
+        this.load.image("bookstack", "/books.png");
+        this.load.image("trophy", "/tropy.png");
+        this.load.image("trophy2", "/trophy2.png");
+        this.load.image("smallsofa", "/smallsofa.png");
+        this.load.image("smalllamp", "/smalllamp.png");
         this.load.image("eevee", "/eevee.png");
         this.load.image("flowerpot", "/flowerpot.png");
+        // this.load.image("flowerpot2", "/flowerpot2.png");
         this.load.image("cupboard", "/cupboardbox.png");
         this.load.image("pokeball", "/pokeball.png");
         this.load.image("player_left", "/walking_left.gif");
@@ -119,6 +132,12 @@ const Game = () => {
         walls.create(16, 300, null).setSize(32, 600).setVisible(false);
         // Right wall
         walls.create(784, 300, null).setSize(32, 600).setVisible(false);
+ 
+
+        //room 1 text
+    
+
+
 
         // Add door to room 2
         const door = this.physics.add
@@ -176,6 +195,17 @@ const Game = () => {
           .staticSprite(580, 110, "trophy")
           .setDisplaySize(40, 40);
         trophy.refreshBody();
+            let door1Name =this.add.text(460,60,"skills",{
+          color:"#fff",fontSize:"12px",
+          backgroundColor:"#000"
+        });
+        let pcName =this.add.text(10,60,"My Projects",{
+          color:"#000"
+        });
+        let pcDirection =this.add.text(30,80,"⬇️⬇️",{
+          color:"#000"
+        });
+        
         // Store interactive objects with their data
         this.interactiveObjects = [
           {
@@ -261,7 +291,7 @@ const Game = () => {
 
         // Add interaction text (initially hidden)
         this.interactionText = this.add
-          .text(400, 50, "", {
+          .text(130, 10, "", {
             fontSize: "18px",
             color: "#ffffff",
             backgroundColor: "#000000",
@@ -392,7 +422,7 @@ const Game = () => {
         const walls = this.physics.add.staticGroup();
 
         // Top wall
-        walls.create(400, 16, null).setSize(800, 32).setVisible(false);
+        walls.create(400, 20, null).setSize(800, 120).setVisible(false);
         // Bottom wall
         walls.create(400, 584, null).setSize(800, 32).setVisible(false);
         // Left wall
@@ -413,6 +443,16 @@ const Game = () => {
         //   .staticSprite(400, 300, "trophy")
         //   .setDisplaySize(50, 50);
         // trophy2.refreshBody();
+        const label = this.add.text(100, 100, "Hello World!", {
+          fontSize: "30px",
+          fontStyle:"bolder",
+          color: "#000000",
+          fontFamily:"Arial"
+        });
+
+        // If you want to move or update it later
+        label.setText("My Skill..");
+        label.setPosition(280, 50);
         const flowerpot1 = this.physics.add
           .staticSprite(620, 240, "flowerpot")
           .setDisplaySize(30, 40);
@@ -423,7 +463,7 @@ const Game = () => {
           .staticSprite(620, 300, "flowerpot")
           .setDisplaySize(30, 40);
         const flowerpot4 = this.physics.add
-          .staticSprite(50, 150, "flowerpot")
+          .staticSprite(30, 150, "flowerpot")
           .setDisplaySize(30, 40);
         const lamp1 = this.physics.add
           .staticSprite(240, 120, "lamp1")
@@ -476,8 +516,8 @@ const Game = () => {
           .setDisplaySize(40, 40);
         eevee.refreshBody();
         const door2 = this.physics.add
-          .staticSprite(470, 500, "door")
-          .setDisplaySize(50, 40);
+          .staticSprite(470, 580, "door")
+          .setDisplaySize(60, 5);
         door2.refreshBody();
         eevee.refreshBody();
         pokeball1.refreshBody();
@@ -490,6 +530,20 @@ const Game = () => {
         flowerpot2.refreshBody();
         flowerpot3.refreshBody();
         flowerpot4.refreshBody();
+
+
+
+        //text for room 2
+        this.add.text(470,460,"Acheivements",{
+color:"#000"
+        }).setAngle(90)
+        this.add.text(450,480,"->",{
+color:"#000"
+        }).setAngle(90);
+        this.add.text(450,540,"->",{
+color:"#000"
+        }).setAngle(90);
+
 
         // Store interactive objects with their data
         this.interactiveObjects = [
@@ -571,7 +625,7 @@ const Game = () => {
 
         // Add interaction text (initially hidden)
         this.interactionText = this.add
-          .text(400, 50, "", {
+          .text(130, 10, "", {
             fontSize: "18px",
             color: "#ffffff",
             backgroundColor: "#000000",
@@ -713,8 +767,8 @@ const Game = () => {
 
         // Add door back to room 1
         const door = this.physics.add
-          .staticSprite(100, 180, "door")
-          .setDisplaySize(70, 110);
+          .staticSprite(100, 170, "door")
+          .setDisplaySize(70, 100);
         door.refreshBody();
         // Add some different objects for room 2
         const pc2 = this.physics.add.staticSprite(600, 230, "portfolio-pc");
@@ -725,70 +779,80 @@ const Game = () => {
         //   .setDisplaySize(50, 50);
         // trophy2.refreshBody();
         const flowerpot1 = this.physics.add
-          .staticSprite(620, 240, "flowerpot")
+          .staticSprite(620, 400, "plant2")
           .setDisplaySize(30, 40);
         const flowerpot2 = this.physics.add
-          .staticSprite(620, 270, "flowerpot")
+          .staticSprite(620, 480, "flowerpot")
           .setDisplaySize(30, 40);
         const flowerpot3 = this.physics.add
-          .staticSprite(620, 300, "flowerpot")
+          .staticSprite(620, 540, "plant2")
+          .setDisplaySize(30, 40);
+        const flowerpot5 = this.physics.add
+          .staticSprite(620, 620, "flowerpot")
           .setDisplaySize(30, 40);
         const flowerpot4 = this.physics.add
-          .staticSprite(50, 150, "flowerpot")
+          .staticSprite(30, 210, "flowerpot")
           .setDisplaySize(30, 40);
-        const lamp1 = this.physics.add
-          .staticSprite(240, 120, "lamp1")
-          .setDisplaySize(80, 60);
-        lamp1.refreshBody();
+        const flowerpot6 = this.physics.add
+          .staticSprite(60, 210, "flowerpot")
+          .setDisplaySize(30, 40);
+        const photoframe = this.physics.add
+          .staticSprite(240, 150, "photoframe2")
+          .setDisplaySize(50, 50);
+        photoframe.refreshBody();
+        const tablefan = this.physics.add
+          .staticSprite(350, 200, "tablefan")
+          .setDisplaySize(50, 60);
+        tablefan.refreshBody();
         const cupboard1 = this.physics.add
-          .staticSprite(50, 350, "cupboard")
+          .staticSprite(60, 350, "cupboard")
           .setDisplaySize(60, 60);
         cupboard1.refreshBody();
         const cupboard2 = this.physics.add
-          .staticSprite(120, 350, "cupboard")
+          .staticSprite(60, 550, "cupboard")
           .setDisplaySize(60, 60);
         cupboard2.refreshBody();
         const cupboard3 = this.physics.add
-          .staticSprite(190, 350, "cupboard")
+          .staticSprite(180, 350, "cupboard")
           .setDisplaySize(60, 60);
         cupboard3.refreshBody();
         const cupboard4 = this.physics.add
-          .staticSprite(260, 350, "cupboard")
+          .staticSprite(180, 550, "cupboard")
           .setDisplaySize(60, 60);
         cupboard4.refreshBody();
         const cupboard5 = this.physics.add
-          .staticSprite(330, 350, "cupboard")
+          .staticSprite(300, 350, "cupboard")
           .setDisplaySize(60, 60);
         cupboard5.refreshBody();
         const cupboard6 = this.physics.add
-          .staticSprite(400, 350, "cupboard")
+          .staticSprite(300, 550, "cupboard")
           .setDisplaySize(60, 60);
         cupboard6.refreshBody();
         const pokeball1 = this.physics.add
-          .staticSprite(50, 330, "trophy")
+          .staticSprite(60, 330, "trophy")
           .setDisplaySize(30, 30);
         const pokeball2 = this.physics.add
-          .staticSprite(120, 330, "trophy")
+          .staticSprite(60, 530, "trophy")
           .setDisplaySize(30, 30);
         const pokeball3 = this.physics.add
-          .staticSprite(190, 330, "trophy")
+          .staticSprite(180, 330, "trophy")
           .setDisplaySize(30, 30);
         const pokeball4 = this.physics.add
-          .staticSprite(260, 330, "trophy")
+          .staticSprite(180, 530, "trophy")
           .setDisplaySize(30, 30);
         const pokeball5 = this.physics.add
-          .staticSprite(330, 330, "trophy")
+          .staticSprite(300, 330, "trophy")
           .setDisplaySize(30, 30);
         const pokeball6 = this.physics.add
-          .staticSprite(400, 330, "trophy")
+          .staticSprite(300, 530, "trophy")
           .setDisplaySize(30, 30);
         const eevee = this.physics.add
-          .staticSprite(470, 350, "eevee")
-          .setDisplaySize(50, 50);
+          .staticSprite(20, 440, "turtwig")
+          .setDisplaySize(50, 40);
         eevee.refreshBody();
         const door2 = this.physics.add
-          .staticSprite(470, 80, "door")
-          .setDisplaySize(50, 70);
+          .staticSprite(470, 170, "door")
+          .setDisplaySize(80, 100);
         door2.refreshBody();
         eevee.refreshBody();
         pokeball1.refreshBody();
@@ -801,6 +865,25 @@ const Game = () => {
         flowerpot2.refreshBody();
         flowerpot3.refreshBody();
         flowerpot4.refreshBody();
+        flowerpot5.refreshBody();
+        flowerpot6.refreshBody();
+
+
+
+        //text for room3
+        this.add.text(80,140,"Skills",{
+          color:"#fff",
+          backgroundColor:"#000",
+          fontSize:"12px"
+        })
+        this.add.text(440,140,"Contact\nMe",{
+          color:"#fff",
+          align:"center",
+          backgroundColor:"#000",
+          fontSize:"12px"
+        })
+
+
 
         // Store interactive objects with their data
         this.interactiveObjects = [
@@ -883,7 +966,7 @@ const Game = () => {
 
         // Add interaction text (initially hidden)
         this.interactionText = this.add
-          .text(400, 50, "", {
+          .text(130, 10, "", {
             fontSize: "18px",
             color: "#ffffff",
             backgroundColor: "#000000",
